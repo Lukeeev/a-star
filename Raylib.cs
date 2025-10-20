@@ -31,10 +31,10 @@ public struct Vector2
 
 public struct Rectangle
 {
-    float x;                // Rectangle top-left corner position x
-    float y;                // Rectangle top-left corner position y
-    float width;            // Rectangle width
-    float height;           // Rectangle height
+    public float x;                // Rectangle top-left corner position x
+    public float y;                // Rectangle top-left corner position y
+    public float width;            // Rectangle width
+    public float height;           // Rectangle height
 
     public Rectangle(float x, float y, float width, float height)
     {
@@ -79,6 +79,9 @@ public static class Raylib
     [DllImport("libraylib.so", EntryPoint = "IsMouseButtonPressed")]
     public static extern bool IsMouseButtonPressed(int button);
 
+    [DllImport("libraylib.so", EntryPoint = "DrawRectangle")]
+    public static extern void DrawRectangle(int posX, int posY, int width, int height, Color color);
+
     [DllImport("libraylib.so", EntryPoint = "DrawRectangleLines")]
     public static extern void DrawRectangleLines(int posX, int posY, int width, int height, Color color);
 
@@ -98,6 +101,6 @@ public static class Raylib
     public static extern int GetFPS();
 
     [DllImport("libraylib.so", EntryPoint = "CheckCollisionPointRec")]
-    public static extern bool CheckCollisionPointRec(Vector2 point, Rectangle rec);                                         // Check if point is inside rectangle
+    public static extern bool CheckCollisionPointRec(Vector2 point, Rectangle rec);   // Check if point is inside rectangle
 
 }

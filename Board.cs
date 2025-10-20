@@ -1,43 +1,55 @@
 public class Board
 {
 
-    public int amount;
     public int startPosX;
     public int startPosY;
+    public Rectangle[] rectangles;
+
+    public Rectangle start;
+    public Rectangle goal;
 
     public Board(int amount, int startPosX, int startPosY)
     {
-        this.amount = amount;
+        this.rectangles = new Rectangle[amount];
         this.startPosX = startPosX;
         this.startPosY = startPosY;
     }
 
-    // private Board adjustBoard(int amount)
-    // {
-    //     return (amount / 2);
-    // }
-
-    public void RenderBoardNodes(int amount, int startPosX, int startPosY, int nodeSize, int screenWidth, int screenHeight, Color color)
+    public void SetupAndRenderBoardNodes(int nodeSize, int screenWidth, int screenHeight, Color color)
     {
         int rowAmount = screenWidth / nodeSize;
-        int posX = startPosX;
-        int posY = startPosY;
+        int posX = this.startPosX;
+        int posY = this.startPosY;
         int rowCounter = 1;
-        for (int i = 0; i < amount; i++)
+        Rectangle rec;
+        // Rectangle[] rectangles = new Rectangle[this.amount.Length];
+        for (int i = 0; i < this.rectangles.Length; i++)
         {
             if (rowCounter == rowAmount)
             {
-                posY += nodeSize + 5;
-                posX = startPosX;
+                posY += nodeSize;
+                posX = this.startPosX;
                 rowCounter = 1;
-
             }
-            Raylib.DrawRectangleLines(posX * rowCounter, posY, nodeSize, nodeSize, color);
+            rec = new Rectangle((float)(posX * rowCounter), (float)posY, (float)nodeSize, (float)nodeSize);
+            // Raylib.DrawRectangleLines(posX * rowCounter, posY, nodeSize, nodeSize, color);
+            Raylib.DrawRectangleLines((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, color);
+            this.rectangles[i] = rec;
             rowCounter++;
         }
     }
 
-    // TODO: Implement the setting of start and gol positions
-
+    public Rectangle SetStartingNode(int i)
+    {
+        Rectangle rec = this.rectangles[i];
+        this.start = rec;
+        return rec;
+    }
+    public Rectangle SetEndingNode(int i)
+    {
+        Rectangle rec = this.rectangles[i];
+        this.goal = rec;
+        return rec;
+    }
 
 }
