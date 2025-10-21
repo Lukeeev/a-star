@@ -101,6 +101,6 @@ public static class Raylib
     public static extern int GetFPS();
 
     [DllImport("libraylib.so", EntryPoint = "CheckCollisionPointRec")]
-    public static extern bool CheckCollisionPointRec(Vector2 point, Rectangle rec);   // Check if point is inside rectangle
+    public static extern bool CheckCollisionPointRec(Vector2 point, Rectangle rec);
 
 }
