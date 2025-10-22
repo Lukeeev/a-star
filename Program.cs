@@ -2,15 +2,15 @@ using System;
 
 public class Program
 {
-    const int WINDOW_WIDTH = 800;
-    const int WINDOW_HEIGHT = 600;
-    const int NODE_SIZE = 10;
+    const int WINDOW_WIDTH      = 800;
+    const int WINDOW_HEIGHT     = 600;
+    const int NODE_SIZE         = 10;
 
-    public static Color BLACK = new Color(0, 0, 0, 255);
-    public static Color WHITE = new Color(255, 255, 255, 255);
-    public static Color RED = new Color(255, 0, 0, 255);
-    public static Color GREEN = new Color(0, 255, 0, 255);
-    public static Color BLUE = new Color(0, 0, 255, 255);
+    public static Color BLACK   = new Color(0, 0, 0, 255);
+    public static Color WHITE   = new Color(255, 255, 255, 255);
+    public static Color RED     = new Color(255, 0, 0, 255);
+    public static Color GREEN   = new Color(0, 255, 0, 255);
+    public static Color BLUE    = new Color(0, 0, 255, 255);
 
     public static Rectangle startPosition;
     public static Rectangle endPosition;
