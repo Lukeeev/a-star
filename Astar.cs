@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 /*
 
     Each cell / node has 3 key values:
@@ -26,9 +28,22 @@
         4. Repeat the cycle until you reach the goal.
 
 */
+
+public class Node
+{
+    public Vector2 position;
+    public Node parent;
+    public int g;
+    public int h;
+    // public int f = g + h;
+}
+
 public class Astar
 {
     public readonly int[] board;
+    public Dictionary<int, Node> openList = new Dictionary<int, Node>();
+    public Dictionary<int, Node> closedList = new Dictionary<int, Node>();
+
     public readonly int start;
     public readonly int goal;
 
@@ -38,4 +53,6 @@ public class Astar
         this.start = start;
         this.goal = goal;
     }
+
+
 }
