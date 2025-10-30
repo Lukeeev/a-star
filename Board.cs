@@ -25,11 +25,11 @@ public class Board
         // Rectangle[] rectangles = new Rectangle[this.amount.Length];
         for (int i = 0; i < this.rectangles.Length; i++)
         {
-            if (rowCounter == rowAmount)
+            if (rowCounter >= rowAmount)
             {
-                posY += nodeSize;
-                posX = this.startPosX;
                 rowCounter = 1;
+                posX = this.startPosX;
+                posY += nodeSize;
             }
             rec = new Rectangle((float)(posX * rowCounter), (float)posY, (float)nodeSize, (float)nodeSize);
             // Raylib.DrawRectangleLines(posX * rowCounter, posY, nodeSize, nodeSize, color);

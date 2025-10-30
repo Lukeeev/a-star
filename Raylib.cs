@@ -53,14 +53,22 @@ public enum MouseButton
     MOUSE_BUTTON_SIDE       = 3,       // Mouse button side (advanced mouse device)
     MOUSE_BUTTON_EXTRA      = 4,       // Mouse button extra (advanced mouse device)
     MOUSE_BUTTON_FORWARD    = 5,       // Mouse button forward (advanced mouse device)
-    MOUSE_BUTTON_BACK       = 6,       // Mouse button back (advanced mouse device)
+    MOUSE_BUTTON_BACK        = 6,      // Mouse button back (advanced mouse device)
 };
+
 
 public static class Raylib
 {
+    public static int FLAG_WINDOW_RESIZABLE = 0x00000004;
 
+    [DllImport("libraylib.so", EntryPoint = "SetConfigFlags")]
+    public static extern void SetConfigFlags(int flags);
     [DllImport("libraylib.so", EntryPoint = "InitWindow")]
     public static extern void InitWindow(int width, int height, string title);
+    [DllImport("libraylib.so", EntryPoint = "GetScreenWidth")]
+    public static extern int GetScreenWidth();
+    [DllImport("libraylib.so", EntryPoint = "GetScreenHeight")]
+    public static extern int GetScreenHeight();
     [DllImport("libraylib.so", EntryPoint = "WindowShouldClose")]
     public static extern bool WindowShouldClose();
 
