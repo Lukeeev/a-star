@@ -29,14 +29,30 @@ using System.Collections.Generic;
 
 */
 
-public class Node
-{
-    public Vector2 position;
-    public Node parent;
-    public int g;
-    public int h;
-    // public int f = g + h;
-}
+/*
+OPEN - list of nodes to be evaluated
+CLOSED - list of nodes already evaluated
+
+add the START node to the OPEN list
+
+loop
+    current = node in the OPEN list with the lowest f cost
+    remove current from the OPEN list
+    add current to the CLOSED list
+
+    if current is the target node //path has been found
+        return
+    
+    foreach neighbour of the current node
+        if neighbour is not traversable, or neighbour is in CLOSED 
+            skip to the next neighbour
+        
+        if new path to neighbour is shorter OR neighbour is not in OPEN
+            set f cost of neighbour
+            set parent of neighbour to current
+            if neighbour is not in OPEN
+                add neighbour to OPEN
+*/
 
 public class Astar
 {

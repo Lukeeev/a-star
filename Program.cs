@@ -3,7 +3,7 @@ public class Program
 {
     const int INITIAL_WINDOW_WIDTH = 800;
     const int INITIAL_WINDOW_HEIGHT = 600;
-    const int NODE_SIZE = 50;
+    const int NODE_SIZE = 70;
 
     static int windowWidth;
     static int windowHeight;
@@ -15,6 +15,7 @@ public class Program
     public static Color RED = new Color(255, 0, 0, 255);
     public static Color GREEN = new Color(0, 255, 0, 255);
     public static Color BLUE = new Color(0, 0, 255, 255);
+    public static Color YELLOW = new Color(255, 255, 0, 255);
 
     public static Rectangle startPosition;
     public static Rectangle endPosition;
@@ -26,53 +27,73 @@ public class Program
 
         Raylib.SetTargetFPS(60);
 
+        int prevWidth = INITIAL_WINDOW_WIDTH;
+        int prevHeight = INITIAL_WINDOW_HEIGHT;
+
+        int columns = INITIAL_WINDOW_WIDTH / NODE_SIZE;
+        int rows = INITIAL_WINDOW_HEIGHT / NODE_SIZE;
+
+        screenNodeAmount = (INITIAL_WINDOW_WIDTH / NODE_SIZE) * (INITIAL_WINDOW_HEIGHT / NODE_SIZE);
+
+        Board board = new Board(
+            columns,
+            rows,
+            NODE_SIZE
+        );
+
         while (!Raylib.WindowShouldClose())
         {
-
             windowWidth = Raylib.GetScreenWidth();
             windowHeight = Raylib.GetScreenHeight();
-            
-            screenNodeAmount = (windowWidth * windowHeight) / (int)(NODE_SIZE * NODE_SIZE);
+
+            if (windowWidth != prevWidth || windowHeight != prevHeight)
+            {
+                columns = windowWidth / NODE_SIZE;
+                rows = windowHeight / NODE_SIZE;
+                screenNodeAmount = columns * rows;
+
+                board = new Board(columns, rows, NODE_SIZE);
+                prevWidth = windowWidth;
+                prevHeight = windowHeight;
+            }
             Console.WriteLine($"screenNodeAmount: {screenNodeAmount}");
-            
+
             Raylib.BeginDrawing();
             Raylib.ClearBackground(WHITE);
 
-            Raylib.DrawText(Raylib.GetFPS().ToString(), 10, 10, 24, RED);
+            board.RenderBoardNodes(NODE_SIZE, windowWidth, windowHeight, BLACK);
 
-            Raylib.DrawText(Raylib.GetMousePosition().x.ToString(), 50, 10, 24, RED);
-            Raylib.DrawText(Raylib.GetMousePosition().y.ToString(), 100, 10, 24, RED);
-
-            Board board = new Board(screenNodeAmount, NODE_SIZE, NODE_SIZE);
-
-            board.SetupAndRenderBoardNodes(NODE_SIZE, windowWidth, windowHeight, BLACK);
-
-            for (int i = 0; i < board.rectangles.Length; i++)
+            if (Raylib.IsMouseButtonPressed((int)MouseButton.MOUSE_BUTTON_LEFT))
             {
-                if (Raylib.IsMouseButtonPressed((int)MouseButton.MOUSE_BUTTON_LEFT))
+                for (int i = 0; i < board.nodes.GetLength(0); i++)
                 {
-                    if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), board.rectangles[i]))
+                    for (int j = 0; j < board.nodes.GetLength(1); j++)
                     {
-                        startPosition = board.SetStartingNode(i);
-                    }
-                }
-                if (Raylib.IsMouseButtonPressed((int)MouseButton.MOUSE_BUTTON_RIGHT))
-                {
-                    if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), board.rectangles[i]))
-                    {
-                        endPosition = board.SetEndingNode(i);
+                        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), board.nodes[i, j].rectangle))
+                        {
+                            startPosition = board.SetStartingNode(i, j);
+                        }
                     }
                 }
             }
-
-            Raylib.DrawRectangle((int)startPosition.x, (int)startPosition.y, (int)startPosition.width, (int)startPosition.height, RED);
-            Raylib.DrawRectangle((int)endPosition.x, (int)endPosition.y, (int)endPosition.width, (int)endPosition.height, BLACK);
+            if (Raylib.IsMouseButtonPressed((int)MouseButton.MOUSE_BUTTON_RIGHT))
+            {
+                for (int i = 0; i < board.nodes.GetLength(0); i++)
+                {
+                    for (int j = 0; j < board.nodes.GetLength(1); j++)
+                    {
+                        if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), board.nodes[i, j].rectangle))
+                        {
+                            endPosition = board.SetEndingNode(i, j);
+                        }
+                    }
+                }
+            }
+            Raylib.DrawRectangle((int)startPosition.x, (int)startPosition.y, (int)startPosition.width, (int)startPosition.height, GREEN);
+            Raylib.DrawRectangle((int)endPosition.x, (int)endPosition.y, (int)endPosition.width, (int)endPosition.height, YELLOW);
 
             Raylib.EndDrawing();
         }
-
-
-
         Raylib.CloseWindow();
     }
 }

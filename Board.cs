@@ -1,55 +1,54 @@
 public class Board
 {
-
-    public int startPosX;
-    public int startPosY;
-    public Rectangle[] rectangles;
-
+    public Node[,] nodes;
     public Rectangle start;
     public Rectangle goal;
 
-    public Board(int amount, int startPosX, int startPosY)
+    public Board(int columns, int rows, int nodeSize)
     {
-        this.rectangles = new Rectangle[amount];
-        this.startPosX = startPosX;
-        this.startPosY = startPosY;
-    }
+        this.nodes = new Node[columns, rows];
 
-    public void SetupAndRenderBoardNodes(int nodeSize, int screenWidth, int screenHeight, Color color)
-    {
-        int rowAmount = screenWidth / nodeSize;
-        int posX = this.startPosX;
-        int posY = this.startPosY;
-        int rowCounter = 1;
-        Rectangle rec;
-        // Rectangle[] rectangles = new Rectangle[this.amount.Length];
-        for (int i = 0; i < this.rectangles.Length; i++)
+        for (int i = 0; i < columns; i++)
         {
-            if (rowCounter >= rowAmount)
+            for (int j = 0; j < rows; j++)
             {
-                rowCounter = 1;
-                posX = this.startPosX;
-                posY += nodeSize;
+                float posX = i * nodeSize;
+                float posY = j * nodeSize;
+
+                this.nodes[i, j] = new Node(true, posX, posY, nodeSize);
             }
-            rec = new Rectangle((float)(posX * rowCounter), (float)posY, (float)nodeSize, (float)nodeSize);
-            // Raylib.DrawRectangleLines(posX * rowCounter, posY, nodeSize, nodeSize, color);
-            Raylib.DrawRectangleLines((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, color);
-            this.rectangles[i] = rec;
-            rowCounter++;
         }
     }
 
-    public Rectangle SetStartingNode(int i)
+    public void RenderBoardNodes(int nodeSize, int screenWidth, int screenHeight, Color color)
     {
-        Rectangle rec = this.rectangles[i];
-        this.start = rec;
-        return rec;
+        for (int i = 0; i < this.nodes.GetLength(0); i++)
+        {
+            for (int j = 0; j < this.nodes.GetLength(1); j++)
+            {
+                Node node = this.nodes[i, j]; 
+                Raylib.DrawRectangleLines(
+                    (int)node.rectangle.x,
+                    (int)node.rectangle.y,
+                    (int)node.rectangle.width,
+                    (int)node.rectangle.height,
+                    color
+                );
+
+            }
+        }
     }
-    public Rectangle SetEndingNode(int i)
+    public Rectangle SetStartingNode(int i, int j)
     {
-        Rectangle rec = this.rectangles[i];
-        this.goal = rec;
-        return rec;
+        Node node = this.nodes[i, j];
+        this.start = node.rectangle;
+        return node.rectangle;
+    }
+    public Rectangle SetEndingNode(int i, int j)
+    {
+        Node node = this.nodes[i, j];
+        this.goal = node.rectangle;
+        return node.rectangle;
     }
 
 }
