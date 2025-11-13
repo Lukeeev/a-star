@@ -1,3 +1,5 @@
+using System;
+
 public class Board
 {
     public Node[,] nodes;
@@ -26,7 +28,7 @@ public class Board
         {
             for (int j = 0; j < this.nodes.GetLength(1); j++)
             {
-                Node node = this.nodes[i, j]; 
+                Node node = this.nodes[i, j];
                 Raylib.DrawRectangleLines(
                     (int)node.rectangle.x,
                     (int)node.rectangle.y,
@@ -34,7 +36,8 @@ public class Board
                     (int)node.rectangle.height,
                     color
                 );
-
+                Console.WriteLine($"{node.centerPos.x} {node.centerPos.y} ");
+                
             }
         }
     }

@@ -46,6 +46,9 @@ public class Program
             windowWidth = Raylib.GetScreenWidth();
             windowHeight = Raylib.GetScreenHeight();
 
+            // Vector2 mousePos = Raylib.GetMousePosition();
+            // Console.WriteLine($"x: {mousePos.x} y: {mousePos.y}");
+            
             if (windowWidth != prevWidth || windowHeight != prevHeight)
             {
                 columns = windowWidth / NODE_SIZE;
@@ -56,7 +59,7 @@ public class Program
                 prevWidth = windowWidth;
                 prevHeight = windowHeight;
             }
-            Console.WriteLine($"screenNodeAmount: {screenNodeAmount}");
+            // Console.WriteLine($"screenNodeAmount: {screenNodeAmount}");
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(WHITE);
