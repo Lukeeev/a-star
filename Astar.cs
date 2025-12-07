@@ -57,8 +57,8 @@ loop
 public class Astar
 {
     public readonly int[] board;
-    public Dictionary<int, Node> openList = new Dictionary<int, Node>();
-    public Dictionary<int, Node> closedList = new Dictionary<int, Node>();
+    public List<Node> openList;
+    public HashSet<Node> closedList = new HashSet<Node>();
 
     public readonly int start;
     public readonly int goal;
@@ -70,5 +70,9 @@ public class Astar
         this.goal = goal;
     }
 
+    public void FindPath(int[,] board, Node start, Node goal)
+    {
+        
+    }
 
 }

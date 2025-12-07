@@ -40,7 +40,7 @@ public class Program
             rows,
             NODE_SIZE
         );
-
+        
         while (!Raylib.WindowShouldClose())
         {
             windowWidth = Raylib.GetScreenWidth();
@@ -48,7 +48,7 @@ public class Program
 
             // Vector2 mousePos = Raylib.GetMousePosition();
             // Console.WriteLine($"x: {mousePos.x} y: {mousePos.y}");
-            
+
             if (windowWidth != prevWidth || windowHeight != prevHeight)
             {
                 columns = windowWidth / NODE_SIZE;
